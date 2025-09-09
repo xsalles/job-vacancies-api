@@ -2,8 +2,10 @@ package br.com.jobvacancies.main.job_vacancies;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan(basePackages = "br.com.jobvacancies.main.job_vacancies")
 public class JobVacanciesApplication {
 
 	public static void main(String[] args) {
