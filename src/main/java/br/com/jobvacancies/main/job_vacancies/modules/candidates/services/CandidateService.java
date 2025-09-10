@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.jobvacancies.main.job_vacancies.modules.candidates.dto.ApiResponse;
+import br.com.jobvacancies.main.job_vacancies.modules.candidates.exceptions.UserAlreadyExistsExcepetion;
 import br.com.jobvacancies.main.job_vacancies.modules.candidates.model.CandidateModel;
 import br.com.jobvacancies.main.job_vacancies.modules.candidates.repository.CandidateRepository;
 
@@ -16,8 +17,7 @@ public class CandidateService {
 
     public ResponseEntity<ApiResponse> createCandidate(CandidateModel candidateModel) {
         if (candidateRepository.existsByEmail(candidateModel.getEmail())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new ApiResponse("The user already exists", HttpStatus.CONFLICT.value()));
+            throw new UserAlreadyExistsExcepetion();
         }
 
         candidateRepository.save(candidateModel);
