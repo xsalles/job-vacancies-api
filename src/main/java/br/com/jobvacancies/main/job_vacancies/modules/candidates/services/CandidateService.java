@@ -16,7 +16,8 @@ public class CandidateService {
 
     public ResponseEntity<ApiResponse> createCandidate(CandidateModel candidateModel) {
         if (candidateRepository.existsByEmail(candidateModel.getEmail())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse("Email already in use", HttpStatus.CONFLICT.value()));
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(new ApiResponse("The user already exists", HttpStatus.CONFLICT.value()));
         }
 
         candidateRepository.save(candidateModel);
