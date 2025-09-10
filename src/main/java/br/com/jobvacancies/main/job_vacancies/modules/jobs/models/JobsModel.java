@@ -29,6 +29,6 @@ public class JobsModel {
     private List<String> benefits;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id", nullable = false, updatable = false)
     private CompanyModel company;
 }
