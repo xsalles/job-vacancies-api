@@ -1,8 +1,10 @@
 package br.com.jobvacancies.main.job_vacancies.modules.jobs.models;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.jobvacancies.main.job_vacancies.modules.company.model.CompanyModel;
@@ -31,4 +33,8 @@ public class JobsModel {
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false, updatable = false)
     private CompanyModel company;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 }
+ 
