@@ -23,10 +23,10 @@ public class CandidateModel {
 
     private String name;
     
-    @Pattern( regexp = "\\S+", message = "O campo (username) não deve conter espaços" )
+    @Pattern( regexp = "\\S+", message = "The field (passwords) should'nt contain spaces" )
     private String username;
 
-    @Email( message = "O campo (email) deve conter um email válido" )
+    @Email( message = "The field (email) should be valid" )
     private String email;
 
     @Length( min = 6, max = 100, message = "O campo (password) deve conter entre 6 e 100 caracteres" )
