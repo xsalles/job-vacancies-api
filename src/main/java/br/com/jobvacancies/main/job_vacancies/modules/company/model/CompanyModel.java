@@ -1,14 +1,17 @@
 package br.com.jobvacancies.main.job_vacancies.modules.company.model;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import br.com.jobvacancies.main.job_vacancies.modules.jobs.models.JobsModel;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -39,6 +42,9 @@ public class CompanyModel {
     private String website;
 
     private String description;
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<JobsModel> jobs;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

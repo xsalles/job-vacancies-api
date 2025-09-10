@@ -5,9 +5,12 @@ import java.util.UUID;
 
 import org.hibernate.validator.constraints.Length;
 
+import br.com.jobvacancies.main.job_vacancies.modules.company.model.CompanyModel;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -24,4 +27,8 @@ public class JobsModel {
     private String description;
 
     private List<String> benefits;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private CompanyModel company;
 }
