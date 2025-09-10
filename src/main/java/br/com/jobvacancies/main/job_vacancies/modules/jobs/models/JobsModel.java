@@ -8,6 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.jobvacancies.main.job_vacancies.modules.company.model.CompanyModel;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,6 +19,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
+@Entity(name = "jobs")
 public class JobsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,8 +34,12 @@ public class JobsModel {
     private List<String> benefits;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", nullable = false, updatable = false)
+    @JoinColumn(name = "company_id", insertable = false, updatable = false)
     private CompanyModel company;
+
+    @Column(name = "company_id")
+    private UUID companyId;
+    
 
     @CreationTimestamp
     private LocalDateTime createdAt;

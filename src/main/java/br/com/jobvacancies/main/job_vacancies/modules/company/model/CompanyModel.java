@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import br.com.jobvacancies.main.job_vacancies.modules.jobs.models.JobsModel;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,6 +19,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
+@Entity(name = "companies")
 public class CompanyModel {
     
     @Id
