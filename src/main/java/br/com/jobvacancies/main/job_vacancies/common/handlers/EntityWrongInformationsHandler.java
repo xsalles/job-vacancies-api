@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import br.com.jobvacancies.main.job_vacancies.common.dto.ApiResponseDto;
-import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityWrongPasswordException;
+import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityWrongInformationsException;
 
 @ControllerAdvice
-public class EntityWrongPasswordHandler {
+public class EntityWrongInformationsHandler {
 
-    @ExceptionHandler(EntityWrongPasswordException.class)
-    public ResponseEntity<ApiResponseDto> handleEntityWrongPassword(EntityWrongPasswordException ex) {
+    @ExceptionHandler(EntityWrongInformationsException.class)
+    public ResponseEntity<ApiResponseDto> handleEntityWrongPassword(EntityWrongInformationsException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponseDto(ex.getMessage(), HttpStatus.UNAUTHORIZED.value()));
     }
 
