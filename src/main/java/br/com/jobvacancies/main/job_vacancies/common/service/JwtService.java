@@ -1,5 +1,7 @@
 package br.com.jobvacancies.main.job_vacancies.common.service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ public class JwtService {
         Algorithm algorithm = Algorithm.HMAC256(jwtConfig.getSecret());
 
         return JWT.create().withIssuer("job-vacancies-api")
+                .withExpiresAt(Instant.now().plus(Duration.ofHours(24)))
                 .withSubject(id.toString())
                 .withClaim("name", name)
                 .withClaim("email", email)
