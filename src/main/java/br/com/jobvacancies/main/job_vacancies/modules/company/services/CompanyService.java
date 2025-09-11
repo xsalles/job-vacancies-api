@@ -11,6 +11,7 @@ import br.com.jobvacancies.main.job_vacancies.common.dto.AuthEntityDto;
 import br.com.jobvacancies.main.job_vacancies.common.dto.AuthResponseDto;
 import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityAlreadyExistsException;
 import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityNotFoundException;
+import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityWrongInformationsException;
 import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityWrongPasswordException;
 import br.com.jobvacancies.main.job_vacancies.common.service.JwtService;
 import br.com.jobvacancies.main.job_vacancies.modules.company.model.CompanyModel;
@@ -53,7 +54,7 @@ public class CompanyService {
                 companyRepository.findByEmail(authEntityDto.getEmail()).get().getPassword());
 
         if (!passwordMatches) {
-            throw new EntityWrongPasswordException();
+            throw new EntityWrongInformationsException();
         }
 
         var token = jwtService.generateToken(company.get().getId(), company.get().getName(), company.get().getEmail());
