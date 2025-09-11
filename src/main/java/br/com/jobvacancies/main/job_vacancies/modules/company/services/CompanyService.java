@@ -12,7 +12,6 @@ import br.com.jobvacancies.main.job_vacancies.common.dto.AuthResponseDto;
 import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityAlreadyExistsException;
 import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityNotFoundException;
 import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityWrongInformationsException;
-import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityWrongPasswordException;
 import br.com.jobvacancies.main.job_vacancies.common.service.JwtService;
 import br.com.jobvacancies.main.job_vacancies.modules.company.model.CompanyModel;
 import br.com.jobvacancies.main.job_vacancies.modules.company.repository.CompanyRepository;
