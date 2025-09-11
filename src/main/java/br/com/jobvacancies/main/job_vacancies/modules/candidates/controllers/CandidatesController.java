@@ -21,12 +21,12 @@ public class CandidatesController {
     @Autowired
     private CandidateService candidateService;
     
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public ResponseEntity<ApiResponseDto> registerCandidate(@Valid @RequestBody CandidateModel candidateModel) {  
         return candidateService.registerCandidate(candidateModel);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<AuthResponseDto> loginCandidate(@Valid @RequestBody AuthEntityDto authEntityDto) {  
         return candidateService.loginCandidate(authEntityDto);
     }

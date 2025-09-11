@@ -21,12 +21,12 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public ResponseEntity<ApiResponseDto> createCompany(@Valid @RequestBody CompanyModel companyModel) {
         return companyService.registerCompany(companyModel);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<AuthResponseDto> loginCompany(@Valid @RequestBody AuthEntityDto authEntityDto) {
         return companyService.loginCompany(authEntityDto);
     }
