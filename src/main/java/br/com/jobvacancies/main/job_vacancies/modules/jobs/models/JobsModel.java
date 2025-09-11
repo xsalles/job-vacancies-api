@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.jobvacancies.main.job_vacancies.modules.company.model.CompanyModel;
+import br.com.jobvacancies.main.job_vacancies.modules.jobs.enums.JobLevelEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -24,6 +26,9 @@ public class JobsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @NotNull(message = "The field (level) is required")
+    private JobLevelEnum level;
 
     @Length(min = 10, max = 200, message = "The field (title) must contain between 2 and 100 characters")
     @NotBlank(message = "The field (title) is required")
@@ -38,6 +43,7 @@ public class JobsModel {
     private CompanyModel company;
 
     @Column(name = "company_id")
+    @NotNull(message = "The field (companyId) is required")
     private UUID companyId;
     
 
