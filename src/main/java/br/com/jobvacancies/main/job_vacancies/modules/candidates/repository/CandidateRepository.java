@@ -1,5 +1,6 @@
 package br.com.jobvacancies.main.job_vacancies.modules.candidates.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,4 +9,6 @@ import br.com.jobvacancies.main.job_vacancies.modules.candidates.model.Candidate
 
 public interface CandidateRepository extends JpaRepository<CandidateModel, UUID> {
     boolean existsByEmail(String email);
+
+    Optional<CandidateModel> findByEmail(String email);
 }

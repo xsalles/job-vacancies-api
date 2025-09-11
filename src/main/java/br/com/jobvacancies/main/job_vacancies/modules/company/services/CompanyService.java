@@ -44,7 +44,7 @@ public class CompanyService {
 
         if (!passwordEncoder.matches(authEntityDto.getPassword(),
                 companyRepository.findByEmail(authEntityDto.getEmail()).get().getPassword())) {
-            throw new EntityWrongPasswordException("Incorrect password.");
+            throw new EntityWrongPasswordException();
         }
 
         return ResponseEntity.status(HttpStatus.OK)

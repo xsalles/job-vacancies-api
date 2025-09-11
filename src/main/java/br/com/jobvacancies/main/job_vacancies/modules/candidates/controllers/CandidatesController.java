@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.jobvacancies.main.job_vacancies.common.dto.ApiResponseDto;
+import br.com.jobvacancies.main.job_vacancies.common.dto.AuthEntityDto;
 import br.com.jobvacancies.main.job_vacancies.modules.candidates.model.CandidateModel;
 import br.com.jobvacancies.main.job_vacancies.modules.candidates.services.CandidateService;
 import jakarta.validation.Valid;
@@ -19,9 +20,14 @@ public class CandidatesController {
     @Autowired
     private CandidateService candidateService;
     
-    @PostMapping("/create")
-    public ResponseEntity<ApiResponseDto> createCandidate(@Valid @RequestBody CandidateModel candidateModel) {  
-        return candidateService.createCandidate(candidateModel);
+    @PostMapping("/register")
+    public ResponseEntity<ApiResponseDto> registerCandidate(@Valid @RequestBody CandidateModel candidateModel) {  
+        return candidateService.registerCandidate(candidateModel);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponseDto> loginCandidate(@Valid @RequestBody AuthEntityDto authEntityDto) {  
+        return candidateService.loginCandidate(authEntityDto);
     }
     
 }
