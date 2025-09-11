@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.com.jobvacancies.main.job_vacancies.modules.candidates.dto.ApiResponse;
+import br.com.jobvacancies.main.job_vacancies.common.dto.ApiResponse;
 import br.com.jobvacancies.main.job_vacancies.modules.candidates.exceptions.UserAlreadyExistsExcepetion;
 import br.com.jobvacancies.main.job_vacancies.modules.candidates.model.CandidateModel;
 import br.com.jobvacancies.main.job_vacancies.modules.candidates.repository.CandidateRepository;

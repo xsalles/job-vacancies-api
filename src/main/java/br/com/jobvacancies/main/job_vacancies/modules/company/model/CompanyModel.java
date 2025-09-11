@@ -26,12 +26,15 @@ public class CompanyModel {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     
+    @NotBlank(message = "The field (name) is required")
     private String name;
 
     @Pattern( regexp = "(\\d{14}|\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2})", message = "The field (CNPJ) must have 14 digits or in the format 00.000.000/0000-00." )
-    private String CNPJ;
+    @NotBlank(message = "The field (CNPJ) is required")
+    private String cnpj;
     
     @Pattern( regexp = "\\S+", message = "The field (username) should'nt contain spaces." )
+    @NotBlank(message = "The field (username) is required")
     private String username;
 
     @Email(message = "Invalid email format")
@@ -43,6 +46,7 @@ public class CompanyModel {
 
     private String website;
 
+    @NotBlank(message = "The field (description) is required")
     private String description;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)

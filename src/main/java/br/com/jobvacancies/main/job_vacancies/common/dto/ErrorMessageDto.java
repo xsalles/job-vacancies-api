@@ -1,4 +1,4 @@
-package br.com.jobvacancies.main.job_vacancies.modules.candidates.dto;
+package br.com.jobvacancies.main.job_vacancies.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

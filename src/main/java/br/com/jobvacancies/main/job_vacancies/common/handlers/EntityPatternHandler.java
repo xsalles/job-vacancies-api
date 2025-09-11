@@ -1,4 +1,4 @@
-package br.com.jobvacancies.main.job_vacancies.modules.candidates.handlers;
+package br.com.jobvacancies.main.job_vacancies.common.handlers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +11,14 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import br.com.jobvacancies.main.job_vacancies.modules.candidates.dto.ErrorMessageDto;
+import br.com.jobvacancies.main.job_vacancies.common.dto.ErrorMessageDto;
 
 @RestControllerAdvice
-public class CandidatePatternHandler {
+public class EntityPatternHandler {
 
       private MessageSource messageSource;
 
-      public CandidatePatternHandler(MessageSource message) {
+      public EntityPatternHandler(MessageSource message) {
             this.messageSource = message;
       }
 
