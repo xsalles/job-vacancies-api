@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import br.com.jobvacancies.main.job_vacancies.common.dto.ApiResponseDto;
 import br.com.jobvacancies.main.job_vacancies.common.dto.AuthEntityDto;
+import br.com.jobvacancies.main.job_vacancies.common.dto.AuthResponseDto;
 import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityAlreadyExistsException;
 import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityNotFoundException;
 import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityWrongPasswordException;
+import br.com.jobvacancies.main.job_vacancies.common.service.JwtService;
 import br.com.jobvacancies.main.job_vacancies.modules.candidates.model.CandidateModel;
 import br.com.jobvacancies.main.job_vacancies.modules.candidates.repository.CandidateRepository;
 
@@ -21,6 +23,9 @@ public class CandidateService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtService jwtService;
 
     public ResponseEntity<ApiResponseDto> registerCandidate(CandidateModel candidateModel) {
         if (candidateRepository.existsByEmail(candidateModel.getEmail())) {
@@ -37,18 +42,24 @@ public class CandidateService {
                 .body(new ApiResponseDto("Candidate created successfully", HttpStatus.CREATED.value()));
     }
 
-    public ResponseEntity<ApiResponseDto> loginCandidate(AuthEntityDto authEntityDto) {
-        if (!candidateRepository.existsByEmail(authEntityDto.getEmail())) {
+    public ResponseEntity<AuthResponseDto> loginCandidate(AuthEntityDto authEntityDto) {
+        var candidate = candidateRepository.findByEmail(authEntityDto.getEmail());
+
+        if (!candidate.isPresent()) {
             throw new EntityNotFoundException("Candidate with this email does not exist.");
         }
 
-        if (!passwordEncoder.matches(authEntityDto.getPassword(),
-                candidateRepository.findByEmail(authEntityDto.getEmail()).get().getPassword())) {
+        var passwordMatches = passwordEncoder.matches(authEntityDto.getPassword(),
+                candidateRepository.findByEmail(authEntityDto.getEmail()).get().getPassword());
+
+        if (!passwordMatches) {
             throw new EntityWrongPasswordException();
         }
 
+        var token = jwtService.generateToken(candidate.get().getId(), candidate.get().getName(), candidate.get().getEmail());
+
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ApiResponseDto("Candidate logged in successfully", HttpStatus.OK.value()));
+                .body(new AuthResponseDto("Candidate logged in successfully", HttpStatus.OK.value(), token));
     }
 
 }

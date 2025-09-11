@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.jobvacancies.main.job_vacancies.common.dto.ApiResponseDto;
 import br.com.jobvacancies.main.job_vacancies.common.dto.AuthEntityDto;
+import br.com.jobvacancies.main.job_vacancies.common.dto.AuthResponseDto;
 import br.com.jobvacancies.main.job_vacancies.modules.company.model.CompanyModel;
 import br.com.jobvacancies.main.job_vacancies.modules.company.services.CompanyService;
 import jakarta.validation.Valid;
@@ -26,7 +27,7 @@ public class CompanyController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponseDto> loginCompany(@Valid @RequestBody AuthEntityDto authEntityDto) {
+    public ResponseEntity<AuthResponseDto> loginCompany(@Valid @RequestBody AuthEntityDto authEntityDto) {
         return companyService.loginCompany(authEntityDto);
     }
 
