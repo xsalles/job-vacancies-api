@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.jobvacancies.main.job_vacancies.common.dto.ApiResponse;
-import br.com.jobvacancies.main.job_vacancies.modules.company.exceptions.CompanyAlreadyExistsException;
+import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityAlreadyExistsException;
 import br.com.jobvacancies.main.job_vacancies.modules.company.model.CompanyModel;
 import br.com.jobvacancies.main.job_vacancies.modules.company.repository.CompanyRepository;
 
@@ -17,7 +17,7 @@ public class CompanyService {
 
     public ResponseEntity<ApiResponse> createCompany(CompanyModel companyModel) {
         if (companyRepository.existsByEmailOrCnpj(companyModel.getEmail(), companyModel.getCnpj())) {
-            throw new CompanyAlreadyExistsException();
+            throw new EntityAlreadyExistsException("Company with this email or CNPJ already exists.");
         }
 
         companyRepository.save(companyModel);
