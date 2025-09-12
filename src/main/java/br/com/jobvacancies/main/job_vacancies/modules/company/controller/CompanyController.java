@@ -22,7 +22,7 @@ public class CompanyController {
     private CompanyService companyService;
 
     @PostMapping("/auth/register")
-    public ResponseEntity<ApiResponseDto> createCompany(@Valid @RequestBody CompanyModel companyModel) {
+    public ResponseEntity<ApiResponseDto<String>> createCompany(@Valid @RequestBody CompanyModel companyModel) {
         return companyService.registerCompany(companyModel);
     }
 

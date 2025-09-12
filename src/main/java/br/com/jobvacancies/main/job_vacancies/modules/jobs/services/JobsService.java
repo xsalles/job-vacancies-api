@@ -13,9 +13,9 @@ public class JobsService {
     @Autowired
     private JobsRepository jobsRepository;
 
-    public ResponseEntity<ApiResponseDto> createJob(JobsModel jobModel) {
+    public ResponseEntity<ApiResponseDto<String>> createJob(JobsModel jobModel) {
         jobsRepository.save(jobModel);
 
-        return ResponseEntity.ok(new ApiResponseDto("Job created successfully", 200));
+        return ResponseEntity.ok(new ApiResponseDto<String>("Job created successfully", 200));
     }
 }

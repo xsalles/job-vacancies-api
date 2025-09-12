@@ -11,9 +11,9 @@ import br.com.jobvacancies.main.job_vacancies.common.dto.ApiResponseDto;
 @RestControllerAdvice
 public class JobLevelEnumHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiResponseDto> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+    public ResponseEntity<ApiResponseDto<String>> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ApiResponseDto("Invalid job level provided. Accepted values are: JUNIOR, PLENO, SENIOR.",
+                .body(new ApiResponseDto<String>("Invalid job level provided. Accepted values are: JUNIOR, PLENO, SENIOR.",
                         HttpStatus.BAD_REQUEST.value()));
     }
 }

@@ -27,7 +27,7 @@ public class CompanyService {
     @Autowired
     private JwtProvider JWTProvider;
 
-    public ResponseEntity<ApiResponseDto> registerCompany(CompanyModel companyModel) {
+    public ResponseEntity<ApiResponseDto<String>> registerCompany(CompanyModel companyModel) {
         if (companyRepository.existsByEmailOrCnpj(companyModel.getEmail(), companyModel.getCnpj())) {
             throw new EntityAlreadyExistsException("Company with this email or CNPJ already exists.");
         }
@@ -39,7 +39,7 @@ public class CompanyService {
         companyRepository.save(companyModel);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ApiResponseDto("Company created successfully", HttpStatus.CREATED.value()));
+                .body(new ApiResponseDto<String>("Company created successfully", HttpStatus.CREATED.value()));
     }
 
     public ResponseEntity<AuthResponseDto> loginCompany(AuthEntityDto authEntityDto) {

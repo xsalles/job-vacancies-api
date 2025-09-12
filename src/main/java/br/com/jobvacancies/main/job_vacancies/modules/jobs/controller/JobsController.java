@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 @RestController
 @RequestMapping("/jobs")
 public class JobsController {
@@ -24,17 +23,20 @@ public class JobsController {
     private JobsService jobsService;
 
     @PostMapping("/create")
-    public ResponseEntity<ApiResponseDto> createJob(@Valid @RequestBody CreateJobDto createJobDto, HttpServletRequest request) {
+    public ResponseEntity<ApiResponseDto<String>> createJob(@Valid @RequestBody CreateJobDto createJobDto,
+            HttpServletRequest request) {
         var companyId = request.getAttribute("company_id");
 
         JobsModel jobModel = JobsModel.builder()
-        .title(createJobDto.getTitle())
-        .description(createJobDto.getDescription())
-        .level(createJobDto.getLevel())
-        .benefits(createJobDto.getBenefits())
-        .companyId(UUID.fromString(companyId.toString()))
-        .build();
+                .title(createJobDto.getTitle())
+                .description(createJobDto.getDescription())
+                .level(createJobDto.getLevel())
+                .benefits(createJobDto.getBenefits())
+                .companyId(UUID.fromString(companyId.toString()))
+                .build();
 
-        return jobsService.createJob(jobModel);
+        jobsService.createJob(jobModel);
+
+        return ResponseEntity.ok(new ApiResponseDto<String>("Job created successfully", 200));
     }
 }

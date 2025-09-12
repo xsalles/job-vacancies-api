@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AuthResponseDto extends ApiResponseDto {
+public class AuthResponseDto extends ApiResponseDto<String> {
     private String token;
 
     public AuthResponseDto(String message, int status, String token) {

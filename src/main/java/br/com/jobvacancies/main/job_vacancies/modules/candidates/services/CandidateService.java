@@ -1,5 +1,7 @@
 package br.com.jobvacancies.main.job_vacancies.modules.candidates.services;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,7 @@ public class CandidateService {
     @Autowired
     private JwtProvider JWTProvider;
 
-    public ResponseEntity<ApiResponseDto> registerCandidate(CandidateModel candidateModel) {
+    public ResponseEntity<ApiResponseDto<String>> registerCandidate(CandidateModel candidateModel) {
         if (candidateRepository.existsByEmail(candidateModel.getEmail())) {
             throw new EntityAlreadyExistsException("Candidate with this email already exists.");
         }
@@ -39,7 +41,7 @@ public class CandidateService {
         candidateRepository.save(candidateModel);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ApiResponseDto("Candidate created successfully", HttpStatus.CREATED.value()));
+                .body(new ApiResponseDto<String>("Candidate created successfully", HttpStatus.CREATED.value()));
     }
 
     public ResponseEntity<AuthResponseDto> loginCandidate(AuthEntityDto authEntityDto) {
@@ -62,4 +64,15 @@ public class CandidateService {
                 .body(new AuthResponseDto("Candidate logged in successfully", HttpStatus.OK.value(), token));
     }
 
+    public ResponseEntity<ApiResponseDto<CandidateModel>> getProfileCandidate(UUID id) {
+        
+         var candidate = candidateRepository.findById(id);
+         
+         if (!candidate.isPresent()) {
+            throw new EntityNotFoundException("Candidate not found.");
+         }
+
+         return ResponseEntity.status(HttpStatus.OK)
+                .body(new ApiResponseDto<CandidateModel>("Candidate found successfully", HttpStatus.OK.value(), candidate.get()));
+    }
 }

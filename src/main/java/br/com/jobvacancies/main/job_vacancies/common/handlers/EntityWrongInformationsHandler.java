@@ -12,8 +12,9 @@ import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityWrongInfor
 public class EntityWrongInformationsHandler {
 
     @ExceptionHandler(EntityWrongInformationsException.class)
-    public ResponseEntity<ApiResponseDto> handleEntityWrongPassword(EntityWrongInformationsException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponseDto(ex.getMessage(), HttpStatus.UNAUTHORIZED.value()));
+    public ResponseEntity<ApiResponseDto<String>> handleEntityWrongPassword(EntityWrongInformationsException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(new ApiResponseDto<String>(ex.getMessage(), HttpStatus.UNAUTHORIZED.value()));
     }
 
 }

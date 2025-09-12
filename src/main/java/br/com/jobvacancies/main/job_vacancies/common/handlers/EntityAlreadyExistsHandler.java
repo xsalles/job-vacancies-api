@@ -10,7 +10,7 @@ import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityAlreadyExi
 @RestControllerAdvice
 public class EntityAlreadyExistsHandler {
     @ExceptionHandler(EntityAlreadyExistsException.class)
-    public ResponseEntity<ApiResponseDto> handleEntityExistsException(EntityAlreadyExistsException ex) {
-        return ResponseEntity.status(409).body(new ApiResponseDto(ex.getMessage(), 409));
+    public ResponseEntity<ApiResponseDto<String>> handleEntityExistsException(EntityAlreadyExistsException ex) {
+        return ResponseEntity.status(409).body(new ApiResponseDto<String>(ex.getMessage(), 409));
     }
 }

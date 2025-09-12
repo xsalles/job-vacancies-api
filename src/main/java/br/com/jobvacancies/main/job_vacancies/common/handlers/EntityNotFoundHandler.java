@@ -12,8 +12,8 @@ import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityNotFoundEx
 public class EntityNotFoundHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ApiResponseDto> handleEntityNotFoundException(EntityNotFoundException ex) {
+    public ResponseEntity<ApiResponseDto<String>> handleEntityNotFoundException(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ApiResponseDto(ex.getMessage(), HttpStatus.NOT_FOUND.value()));
+                .body(new ApiResponseDto<String>(ex.getMessage(), HttpStatus.NOT_FOUND.value()));
     }
 }
