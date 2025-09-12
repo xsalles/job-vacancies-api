@@ -43,10 +43,8 @@ public class JobsModel {
     private CompanyModel company;
 
     @Column(name = "company_id")
-    @NotNull(message = "The field (companyId) is required")
     private UUID companyId;
     
-
     @CreationTimestamp
     private LocalDateTime createdAt;
 }

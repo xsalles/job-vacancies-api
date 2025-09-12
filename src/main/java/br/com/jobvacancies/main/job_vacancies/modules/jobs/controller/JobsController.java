@@ -1,5 +1,7 @@
 package br.com.jobvacancies.main.job_vacancies.modules.jobs.controller;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.jobvacancies.main.job_vacancies.common.dto.ApiResponseDto;
 import br.com.jobvacancies.main.job_vacancies.modules.jobs.models.JobsModel;
 import br.com.jobvacancies.main.job_vacancies.modules.jobs.services.JobsService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -20,7 +23,11 @@ public class JobsController {
     private JobsService jobsService;
 
     @PostMapping("/create")
-    public ResponseEntity<ApiResponseDto> createJob(@Valid @RequestBody JobsModel jobModel) {
+    public ResponseEntity<ApiResponseDto> createJob(@Valid @RequestBody JobsModel jobModel, HttpServletRequest request) {
+        var companyId = request.getAttribute("company_id");
+
+        jobModel.setCompanyId(UUID.fromString((companyId.toString())));
+
         return jobsService.createJob(jobModel);
     }
 }

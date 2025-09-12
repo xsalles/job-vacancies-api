@@ -1,4 +1,4 @@
-package br.com.jobvacancies.main.job_vacancies.common.service;
+package br.com.jobvacancies.main.job_vacancies.common.provider;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -9,11 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 
 import br.com.jobvacancies.main.job_vacancies.config.jwt.JwtConfig;
 
 @Service
-public class JwtService {
+public class JwtProvider {
     @Autowired
     private JwtConfig jwtConfig;
 
@@ -27,4 +28,23 @@ public class JwtService {
                 .withClaim("email", email)
                 .sign(algorithm);
     }
+
+    public String validateToken(String token) {
+        Algorithm algorithm = Algorithm.HMAC256(jwtConfig.getSecret());
+
+        token = token.replace("Bearer ", "");
+
+        try {
+            var subject = JWT.require(algorithm)
+                    .build()
+                    .verify(token)
+                    .getSubject();
+
+            return subject;
+        } catch (JWTVerificationException ex) {
+            ex.printStackTrace();
+            return "";
+        }
+    }
+
 }

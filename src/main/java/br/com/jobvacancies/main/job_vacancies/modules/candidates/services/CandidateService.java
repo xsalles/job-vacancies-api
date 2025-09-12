@@ -12,7 +12,7 @@ import br.com.jobvacancies.main.job_vacancies.common.dto.AuthResponseDto;
 import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityAlreadyExistsException;
 import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityNotFoundException;
 import br.com.jobvacancies.main.job_vacancies.common.exceptions.EntityWrongInformationsException;
-import br.com.jobvacancies.main.job_vacancies.common.service.JwtService;
+import br.com.jobvacancies.main.job_vacancies.common.provider.JwtProvider;
 import br.com.jobvacancies.main.job_vacancies.modules.candidates.model.CandidateModel;
 import br.com.jobvacancies.main.job_vacancies.modules.candidates.repository.CandidateRepository;
 
@@ -25,7 +25,7 @@ public class CandidateService {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private JwtService jwtService;
+    private JwtProvider JWTProvider;
 
     public ResponseEntity<ApiResponseDto> registerCandidate(CandidateModel candidateModel) {
         if (candidateRepository.existsByEmail(candidateModel.getEmail())) {
@@ -56,7 +56,7 @@ public class CandidateService {
             throw new EntityWrongInformationsException();
         }
 
-        var token = jwtService.generateToken(candidate.get().getId(), candidate.get().getName(), candidate.get().getEmail());
+        var token = JWTProvider.generateToken(candidate.get().getId(), candidate.get().getName(), candidate.get().getEmail());
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new AuthResponseDto("Candidate logged in successfully", HttpStatus.OK.value(), token));
