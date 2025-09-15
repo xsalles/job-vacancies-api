@@ -56,7 +56,7 @@ public class CompanyService {
             throw new EntityWrongInformationsException();
         }
 
-        var token = JWTProvider.generateToken(company.get().getId(), company.get().getName(), company.get().getEmail());
+        var token = JWTProvider.generateToken(company.get().getId(), company.get().getName(), company.get().getEmail(), "COMPANY");
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new AuthResponseDto("Company logged in successfully", HttpStatus.OK.value(), token));

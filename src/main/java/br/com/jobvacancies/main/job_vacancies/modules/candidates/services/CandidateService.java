@@ -58,7 +58,7 @@ public class CandidateService {
             throw new EntityWrongInformationsException();
         }
 
-        var token = JWTProvider.generateToken(candidate.get().getId(), candidate.get().getName(), candidate.get().getEmail());
+        var token = JWTProvider.generateToken(candidate.get().getId(), candidate.get().getName(), candidate.get().getEmail(), "CANDIDATE");
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new AuthResponseDto("Candidate logged in successfully", HttpStatus.OK.value(), token));

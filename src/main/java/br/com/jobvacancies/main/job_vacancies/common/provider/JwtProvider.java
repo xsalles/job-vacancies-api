@@ -18,7 +18,7 @@ public class JwtProvider {
     @Autowired
     private JwtConfig jwtConfig;
 
-    public String generateToken(UUID id, String name, String email) {
+    public String generateToken(UUID id, String name, String email, String role) {
         Algorithm algorithm = Algorithm.HMAC256(jwtConfig.getSecret());
 
         return JWT.create().withIssuer("job-vacancies-api")
@@ -26,6 +26,7 @@ public class JwtProvider {
                 .withSubject(id.toString())
                 .withClaim("name", name)
                 .withClaim("email", email)
+                .withClaim("role", role)
                 .sign(algorithm);
     }
 
